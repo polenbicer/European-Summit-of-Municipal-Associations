@@ -1,7 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { ArrowDown, CalendarDays, Check, Clock3, Download, MapPin } from "lucide-react";
+import { useState } from "react";
+import { ArrowDown, CalendarDays, Check, Clock3, Download, ExternalLink, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
@@ -10,31 +10,6 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
 
 type Language = "en" | "tr";
-
-const programme = {
-  en: [
-    ["14:00 – 14:30", "Registration & Welcome Coffee"],
-    ["14:30 – 14:50", "Opening Remarks"],
-    ["14:50 – 15:10", "Setting the Scene: The Global Agenda on the Road to COP31"],
-    ["15:10 – 15:50", "Combined Thematic Session – Part I: Climate Governance and Implementation Capacity: The Financing Dimension"],
-    ["15:50 – 16:00", "Coffee Break"],
-    ["16:00 – 16:40", "Combined Thematic Session – Part II: Bringing the Local Voice into COP31 Decision-Making"],
-    ["16:40 – 17:00", "Feedback on the Position Paper and COP31 Messages"],
-    ["17:00 – 17:10", "Closing, Drafting Process and Next Steps"],
-    ["17:10 – 18:10", "Networking & Cocktail Reception"],
-  ],
-  tr: [
-    ["14.00 – 14.30", "Kayıt ve Hoş Geldiniz Kahvesi"],
-    ["14.30 – 14.50", "Açılış Konuşmaları"],
-    ["14.50 – 15.10", "Çerçevenin Sunulması: COP31’e Giden Süreçte Küresel Gündem"],
-    ["15.10 – 15.50", "Birleşik Tematik Oturum – Bölüm I: İklim Yönetişimi ve Uygulama Kapasitesi: Finansman Boyutu"],
-    ["15.50 – 16.00", "Kahve Molası"],
-    ["16.00 – 16.40", "Birleşik Tematik Oturum – Bölüm II: Yerel Sesi COP31 Karar Süreçlerine Taşımak"],
-    ["16.40 – 17.00", "Pozisyon Belgesi ve COP31 Mesajlarına Yönelik Geri Bildirim"],
-    ["17.00 – 17.10", "Kapanış, Yazım Süreci ve Sonraki Adımlar"],
-    ["17.10 – 18.10", "Networking ve Kokteyl"],
-  ],
-};
 
 const copy = {
   en: {
@@ -50,7 +25,7 @@ const copy = {
     aboutText: "The Summit will provide a platform for exchanging experiences on the distinctive role and added value of associations of local and regional authorities, identifying shared priorities and preparing a joint position paper. Particular attention will be given to municipalities’ effective participation in climate governance and multilevel decision-making, coordination across levels of government and accountability. Access to green finance and technical assistance will be considered as an enabling dimension of stronger local implementation.",
     questionLabel: "The core question",
     question: "Which functions that local governments find difficult to undertake individually can be carried out collectively and effectively through associations of local and regional authorities?",
-    programmeTitle: "Programme", programmeDesc: "A participatory afternoon focused on climate governance, implementation capacity, the financing dimension and bringing the local voice into COP31 decision-making.", download: "Download full programme",
+    programmeTitle: "Programme", programmeDesc: "A participatory afternoon focused on climate governance, implementation capacity, the financing dimension and bringing the local voice into COP31 decision-making.", download: "Download draft programme", open: "Open PDF",
     conceptTitle: "Concept note", conceptDesc: "Purpose, discussion framework, working format and expected outcomes.",
     conceptSections: [
       ["About the Summit", "Local and regional governments are the primary level at which climate goals are translated into action on the ground. Yet their meaningful participation in climate governance and decision-making often remains limited, and they face common challenges in accessing finance, technical assistance and policymaking processes. Municipal associations consolidate local needs, bring them to national and international agendas, strengthen dialogue across levels of government and support municipalities’ capacity for implementation. Representing all 1,405 municipalities in Türkiye, UMT will bring together municipal associations and relevant institutions from Türkiye and across Europe in Brussels. The Summit aims to highlight their distinct added value, identify shared priorities and establish lasting channels of cooperation between Türkiye and Europe."],
@@ -79,7 +54,7 @@ const copy = {
     about: "Zirve hakkında",
     aboutText: "Zirve; yerel ve bölgesel yönetim birliklerinin özgün rolü ve katma değerine ilişkin deneyimlerin paylaşılması, ortak önceliklerin belirlenmesi ve ortak bir pozisyon belgesinin hazırlanması için bir platform sunacaktır. Özellikle belediyelerin iklim yönetişimi ve çok düzeyli karar alma süreçlerine etkin katılımı, düzeyler arası koordinasyon ve hesap verebilirlik ele alınacak; yeşil finansmana ve teknik desteğe erişim ise yerel uygulamanın güçlendirilmesi bağlamında değerlendirilecektir.",
     questionLabel: "Zirvenin temel sorusu", question: "Yerel yönetimlerin tek başına gerçekleştirmekte zorlandığı hangi işlevleri yerel ve bölgesel yönetim birlikleri ortak ve etkili biçimde yerine getirebilir?",
-    programmeTitle: "Program", programmeDesc: "İklim yönetişimi, uygulama kapasitesi, finansman boyutu ve yerel sesin COP31 karar süreçlerine taşınmasına odaklanan katılımcı bir öğleden sonra.", download: "Programın tamamını indir",
+    programmeTitle: "Program", programmeDesc: "İklim yönetişimi, uygulama kapasitesi, finansman boyutu ve yerel sesin COP31 karar süreçlerine taşınmasına odaklanan katılımcı bir öğleden sonra.", download: "Taslak programı indir", open: "PDF’yi aç",
     conceptTitle: "Konsept notu", conceptDesc: "Zirvenin amacı, tartışma çerçevesi, çalışma biçimi ve beklenen çıktıları.",
     conceptSections: [
       ["Zirve hakkında", "Yerel ve bölgesel yönetimler, iklim hedeflerinin sahada hayata geçirildiği başlıca yönetim düzeyidir. Buna karşın iklim yönetişimi ve karar alma süreçlerine anlamlı katılımları çoğu zaman sınırlı kalmakta; finansmana, teknik desteğe ve politika süreçlerine erişimde ortak güçlükler yaşamaktadır. Belediye birlikleri yerel ihtiyaçları bir araya getirerek ulusal ve uluslararası gündemlere taşır, farklı yönetim düzeyleri arasındaki diyaloğu güçlendirir ve belediyelerin uygulama kapasitesini destekler. Türkiye’deki 1.405 belediyenin tamamını temsil eden TBB, Türkiye ve Avrupa’daki belediye birlikleri ile ilgili kurumları Brüksel’de buluşturacaktır. Zirve, birliklerin özgün katma değerini görünür kılmayı, ortak öncelikleri belirlemeyi ve kalıcı iş birliği kanalları geliştirmeyi amaçlamaktadır."],
@@ -105,8 +80,6 @@ export default function Home() {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error" | "required">("idle");
   const t = copy[language];
   const logo = language === "en" ? "/logo-umt-en.jpeg" : "/logo-tbb-tr.jpeg";
-  const programmeUrl = language === "en" ? "/documents/program-en.pdf" : "/documents/program-tr.pdf";
-  const rows = useMemo(() => programme[language], [language]);
 
   async function submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -138,16 +111,11 @@ export default function Home() {
       </div>
       <p className="hero-intro">{t.intro}</p>
       <div className="hero-actions"><Button asChild className="primary-action"><a href="#rsvp">{t.rsvp}<ArrowDown /></a></Button><p>{t.deadline}</p></div>
-      <div className="document-actions"><ProgrammeDialog title={t.programmeTitle} description={t.programmeDesc} rows={rows} download={t.download} url={programmeUrl} trigger={t.programme} /><ConceptDialog title={t.conceptTitle} description={t.conceptDesc} sections={t.conceptSections} download={t.downloadConcept} trigger={t.concept} /></div>
-    </section>
-
-    <section className="about-section">
-      <div className="section-number">01</div><div><p className="section-kicker">{t.about}</p><p className="about-copy">{t.aboutText}</p></div>
-      <blockquote><span>{t.questionLabel}</span>“{t.question}”</blockquote>
+      <div className="document-actions"><DocumentDialog title={t.programmeTitle} description={t.programmeDesc} download={t.download} open={t.open} url="/documents/summit-draft-programme-tr-en.pdf" trigger={t.programme} language={language} /><DocumentDialog title={t.conceptTitle} description={t.conceptDesc} download={t.downloadConcept} open={t.open} url="/documents/summit-concept-note-tr-en.pdf" trigger={t.concept} language={language} /></div>
     </section>
 
     <section id="rsvp" className="rsvp-section">
-      <div className="rsvp-intro"><div className="section-number">02</div><p className="section-kicker">{t.rsvp}</p><h2>{t.formTitle}</h2><p>{t.formIntro}</p><p className="deadline-note">{t.deadline}</p></div>
+      <div className="rsvp-intro"><div className="section-number">01</div><p className="section-kicker">{t.rsvp}</p><h2>{t.formTitle}</h2><p>{t.formIntro}</p><p className="deadline-note">{t.deadline}</p></div>
       <form onSubmit={submit} className="rsvp-form">
         <div className="field-grid"><Field label={t.firstName} name="firstName" required /><Field label={t.lastName} name="lastName" required /></div>
         <Field label={t.organisation} name="organisation" required /><Field label={t.position} name="position" required /><Field label={t.email} name="email" type="email" required />
@@ -166,10 +134,6 @@ function Field({ label, name, type = "text", required = false }: { label: string
   return <div className="field-wrap"><Label htmlFor={name}>{label}{required && <span> *</span>}</Label><Input id={name} name={name} type={type} required={required} /></div>;
 }
 
-function ProgrammeDialog({ title, description, rows, download, url, trigger }: { title: string; description: string; rows: string[][]; download: string; url: string; trigger: string }) {
-  return <Dialog><DialogTrigger asChild><Button variant="outline" className="doc-button">{trigger}</Button></DialogTrigger><DialogContent className="document-dialog"><DialogHeader><DialogTitle>{title}</DialogTitle><DialogDescription>{description}</DialogDescription></DialogHeader><div className="programme-list">{rows.map(([time, item]) => <div key={time}><time>{time}</time><p>{item}</p></div>)}</div><Button asChild variant="outline"><a href={url} download><Download />{download}</a></Button></DialogContent></Dialog>;
-}
-
-function ConceptDialog({ title, description, sections, download, trigger }: { title: string; description: string; sections: string[][]; download: string; trigger: string }) {
-  return <Dialog><DialogTrigger asChild><Button variant="outline" className="doc-button">{trigger}</Button></DialogTrigger><DialogContent className="document-dialog concept-dialog"><DialogHeader><DialogTitle>{title}</DialogTitle><DialogDescription>{description}</DialogDescription></DialogHeader><div className="concept-copy">{sections.map(([heading, text]) => <section key={heading}><h3>{heading}</h3><p>{text}</p></section>)}</div><Button asChild variant="outline"><a href="/documents/concept-note-bilingual.pdf" download><Download />{download}</a></Button></DialogContent></Dialog>;
+function DocumentDialog({ title, description, download, open, url, trigger, language }: { title: string; description: string; download: string; open: string; url: string; trigger: string; language: Language }) {
+  return <Dialog><DialogTrigger asChild><Button variant="outline" className="doc-button">{trigger}</Button></DialogTrigger><DialogContent className="document-dialog pdf-dialog" key={language}><DialogHeader><DialogTitle>{title}</DialogTitle><DialogDescription>{description}</DialogDescription></DialogHeader><div className="pdf-frame"><iframe title={title} src={`${url}#toolbar=0`} /></div><div className="pdf-actions"><Button asChild variant="outline"><a href={url} target="_blank" rel="noopener noreferrer"><ExternalLink />{open}</a></Button><Button asChild variant="outline"><a href={url} download><Download />{download}</a></Button></div></DialogContent></Dialog>;
 }
