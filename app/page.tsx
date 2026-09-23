@@ -111,7 +111,7 @@ export default function Home() {
       </div>
       <p className="hero-intro">{t.intro}</p>
       <div className="hero-actions"><Button asChild className="primary-action"><a href="#rsvp">{t.rsvp}<ArrowDown /></a></Button><p>{t.deadline}</p></div>
-      <div className="document-actions"><DocumentDialog title={t.programmeTitle} description={t.programmeDesc} download={t.download} open={t.open} url="/documents/summit-draft-programme-tr-en.pdf" trigger={t.programme} language={language} /><DocumentDialog title={t.conceptTitle} description={t.conceptDesc} download={t.downloadConcept} open={t.open} url="/documents/summit-concept-note-tr-en.pdf" trigger={t.concept} language={language} /></div>
+      <div className="document-actions"><DocumentDialog title={t.programmeTitle} description={t.programmeDesc} download={t.download} open={t.open} url="/documents/summit-draft-programme-tr-en.pdf" cover="/documents/programme-cover.png" trigger={t.programme} language={language} /><DocumentDialog title={t.conceptTitle} description={t.conceptDesc} download={t.downloadConcept} open={t.open} url="/documents/summit-concept-note-tr-en.pdf" cover="/documents/concept-cover.png" trigger={t.concept} language={language} /></div>
     </section>
 
     <section id="rsvp" className="rsvp-section">
@@ -134,6 +134,6 @@ function Field({ label, name, type = "text", required = false }: { label: string
   return <div className="field-wrap"><Label htmlFor={name}>{label}{required && <span> *</span>}</Label><Input id={name} name={name} type={type} required={required} /></div>;
 }
 
-function DocumentDialog({ title, description, download, open, url, trigger, language }: { title: string; description: string; download: string; open: string; url: string; trigger: string; language: Language }) {
-  return <Dialog><DialogTrigger asChild><Button variant="outline" className="doc-button">{trigger}</Button></DialogTrigger><DialogContent className="document-dialog pdf-dialog" key={language}><DialogHeader><DialogTitle>{title}</DialogTitle><DialogDescription>{description}</DialogDescription></DialogHeader><div className="pdf-frame"><iframe title={title} src={`${url}#toolbar=0`} /></div><div className="pdf-actions"><Button asChild variant="outline"><a href={url} target="_blank" rel="noopener noreferrer"><ExternalLink />{open}</a></Button><Button asChild variant="outline"><a href={url} download><Download />{download}</a></Button></div></DialogContent></Dialog>;
+function DocumentDialog({ title, description, download, open, url, cover, trigger, language }: { title: string; description: string; download: string; open: string; url: string; cover: string; trigger: string; language: Language }) {
+  return <Dialog><DialogTrigger asChild><Button variant="outline" className="doc-button">{trigger}</Button></DialogTrigger><DialogContent className="document-dialog pdf-dialog" key={language}><DialogHeader><DialogTitle>{title}</DialogTitle><DialogDescription>{description}</DialogDescription></DialogHeader><a className="pdf-frame" href={url} target="_blank" rel="noopener noreferrer" aria-label={`${open}: ${title}`}><img src={cover} alt="" /></a><div className="pdf-actions"><Button asChild variant="outline"><a href={url} target="_blank" rel="noopener noreferrer"><ExternalLink />{open}</a></Button><Button asChild variant="outline"><a href={url} download><Download />{download}</a></Button></div></DialogContent></Dialog>;
 }
