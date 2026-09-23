@@ -11,6 +11,8 @@ import { Textarea } from "@/components/ui/textarea";
 
 type Language = "en" | "tr";
 
+const documentOrigin = "https://european-municipal-associations-summit.polenbicer.chatgpt.site";
+
 const copy = {
   en: {
     hosted: "Hosted by the Union of Municipalities of Türkiye",
@@ -20,13 +22,14 @@ const copy = {
     venue: "CEMR Meeting Room · 1st Floor", address: "Square de Meeûs 1 · 1000 Brussels",
     intro: "A focused half-day working summit bringing together associations of local and regional authorities and relevant institutions from Türkiye and across Europe.",
     rsvp: "Registration", deadline: "Please respond by 10 October 2026",
-    programme: "View programme", concept: "Read concept note",
+    programme: "View programme", concept: "Read concept note", invitation: "View invitation",
     about: "About the summit",
     aboutText: "The Summit will provide a platform for exchanging experiences on the distinctive role and added value of associations of local and regional authorities, identifying shared priorities and preparing a joint position paper. Particular attention will be given to municipalities’ effective participation in climate governance and multilevel decision-making, coordination across levels of government and accountability. Access to green finance and technical assistance will be considered as an enabling dimension of stronger local implementation.",
     questionLabel: "The core question",
     question: "Which functions that local governments find difficult to undertake individually can be carried out collectively and effectively through associations of local and regional authorities?",
     programmeTitle: "Programme", programmeDesc: "A participatory afternoon focused on climate governance, implementation capacity, the financing dimension and bringing the local voice into COP31 decision-making.", download: "Download draft programme", open: "Open PDF",
     conceptTitle: "Concept note", conceptDesc: "Purpose, discussion framework, working format and expected outcomes.",
+    invitationTitle: "Invitation", invitationDesc: "Official invitation letter for the Summit.", downloadInvitation: "Download invitation",
     conceptSections: [
       ["About the Summit", "Local and regional governments are the primary level at which climate goals are translated into action on the ground. Yet their meaningful participation in climate governance and decision-making often remains limited, and they face common challenges in accessing finance, technical assistance and policymaking processes. Municipal associations consolidate local needs, bring them to national and international agendas, strengthen dialogue across levels of government and support municipalities’ capacity for implementation. Representing all 1,405 municipalities in Türkiye, UMT will bring together municipal associations and relevant institutions from Türkiye and across Europe in Brussels. The Summit aims to highlight their distinct added value, identify shared priorities and establish lasting channels of cooperation between Türkiye and Europe."],
       ["Key question", "Which functions that local governments find difficult to undertake individually can be carried out collectively and effectively through associations of local and regional authorities?"],
@@ -50,12 +53,13 @@ const copy = {
     venue: "CEMR Toplantı Salonu · 1. Kat", address: "Square de Meeûs 1 · 1000 Brüksel",
     intro: "Türkiye’den ve Avrupa’dan yerel ve bölgesel yönetim birlikleri ile ilgili kurumları bir araya getiren, odaklı bir yarım günlük çalışma zirvesi.",
     rsvp: "Kayıt", deadline: "Lütfen 10 Ekim 2026 tarihine kadar yanıtlayınız",
-    programme: "Programı görüntüle", concept: "Konsept notunu oku",
+    programme: "Programı görüntüle", concept: "Konsept notunu oku", invitation: "Davetiyeyi görüntüle",
     about: "Zirve hakkında",
     aboutText: "Zirve; yerel ve bölgesel yönetim birliklerinin özgün rolü ve katma değerine ilişkin deneyimlerin paylaşılması, ortak önceliklerin belirlenmesi ve ortak bir pozisyon belgesinin hazırlanması için bir platform sunacaktır. Özellikle belediyelerin iklim yönetişimi ve çok düzeyli karar alma süreçlerine etkin katılımı, düzeyler arası koordinasyon ve hesap verebilirlik ele alınacak; yeşil finansmana ve teknik desteğe erişim ise yerel uygulamanın güçlendirilmesi bağlamında değerlendirilecektir.",
     questionLabel: "Zirvenin temel sorusu", question: "Yerel yönetimlerin tek başına gerçekleştirmekte zorlandığı hangi işlevleri yerel ve bölgesel yönetim birlikleri ortak ve etkili biçimde yerine getirebilir?",
     programmeTitle: "Program", programmeDesc: "İklim yönetişimi, uygulama kapasitesi, finansman boyutu ve yerel sesin COP31 karar süreçlerine taşınmasına odaklanan katılımcı bir öğleden sonra.", download: "Taslak programı indir", open: "PDF’yi aç",
     conceptTitle: "Konsept notu", conceptDesc: "Zirvenin amacı, tartışma çerçevesi, çalışma biçimi ve beklenen çıktıları.",
+    invitationTitle: "Davetiye", invitationDesc: "Zirve için hazırlanan resmî davet mektubu.", downloadInvitation: "Davetiyeyi indir",
     conceptSections: [
       ["Zirve hakkında", "Yerel ve bölgesel yönetimler, iklim hedeflerinin sahada hayata geçirildiği başlıca yönetim düzeyidir. Buna karşın iklim yönetişimi ve karar alma süreçlerine anlamlı katılımları çoğu zaman sınırlı kalmakta; finansmana, teknik desteğe ve politika süreçlerine erişimde ortak güçlükler yaşamaktadır. Belediye birlikleri yerel ihtiyaçları bir araya getirerek ulusal ve uluslararası gündemlere taşır, farklı yönetim düzeyleri arasındaki diyaloğu güçlendirir ve belediyelerin uygulama kapasitesini destekler. Türkiye’deki 1.405 belediyenin tamamını temsil eden TBB, Türkiye ve Avrupa’daki belediye birlikleri ile ilgili kurumları Brüksel’de buluşturacaktır. Zirve, birliklerin özgün katma değerini görünür kılmayı, ortak öncelikleri belirlemeyi ve kalıcı iş birliği kanalları geliştirmeyi amaçlamaktadır."],
       ["Zirvenin temel sorusu", "Yerel yönetimlerin tek başına gerçekleştirmekte zorlandığı hangi işlevleri yerel ve bölgesel yönetim birlikleri ortak ve etkili biçimde yerine getirebilir?"],
@@ -80,6 +84,8 @@ export default function Home() {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error" | "required">("idle");
   const t = copy[language];
   const logo = language === "en" ? "/logo-umt-en.jpeg" : "/logo-tbb-tr.jpeg";
+  const invitationUrl = language === "en" ? `${documentOrigin}/documents/summit-invitation-en.pdf` : `${documentOrigin}/documents/summit-invitation-tr.pdf`;
+  const invitationCover = language === "en" ? "/documents/invitation-cover-en.png" : "/documents/invitation-cover-tr.png";
 
   async function submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -111,7 +117,7 @@ export default function Home() {
       </div>
       <p className="hero-intro">{t.intro}</p>
       <div className="hero-actions"><Button asChild className="primary-action"><a href="#rsvp">{t.rsvp}<ArrowDown /></a></Button><p>{t.deadline}</p></div>
-      <div className="document-actions"><DocumentDialog title={t.programmeTitle} description={t.programmeDesc} download={t.download} open={t.open} url="/documents/summit-draft-programme-tr-en.pdf" cover="/documents/programme-cover.png" trigger={t.programme} language={language} /><DocumentDialog title={t.conceptTitle} description={t.conceptDesc} download={t.downloadConcept} open={t.open} url="/documents/summit-concept-note-tr-en.pdf" cover="/documents/concept-cover.png" trigger={t.concept} language={language} /></div>
+      <div className="document-actions"><DocumentDialog title={t.programmeTitle} description={t.programmeDesc} download={t.download} open={t.open} url={`${documentOrigin}/documents/summit-draft-programme-tr-en.pdf`} cover="/documents/programme-cover.png" trigger={t.programme} language={language} /><DocumentDialog title={t.conceptTitle} description={t.conceptDesc} download={t.downloadConcept} open={t.open} url={`${documentOrigin}/documents/summit-concept-note-tr-en.pdf`} cover="/documents/concept-cover.png" trigger={t.concept} language={language} /><DocumentDialog title={t.invitationTitle} description={t.invitationDesc} download={t.downloadInvitation} open={t.open} url={invitationUrl} cover={invitationCover} trigger={t.invitation} language={language} /></div>
     </section>
 
     <section id="rsvp" className="rsvp-section">
